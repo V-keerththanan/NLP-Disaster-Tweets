@@ -14,5 +14,5 @@
      2. RNN to understand sequence pattern
      3. Dense layer
 ##### Evaluvation of the model
-     got more than 71% accuracy in validation set
+     got more than 73% accuracy in validation set
   
