@@ -4,15 +4,15 @@
     
     link : https://www.kaggle.com/competitions/nlp-getting-started/overview/description
     
-Preprocessing text data 
+#####Preprocessing text data 
      1. Remove punctuation
      2. make all words to lower case 
      3. take token(Word) From sentence
         Here i used TensorFlow to get a token, so Token class itself can do (1,2,3) step
-create a model
+#####create a model
      1. here i took Embedding layers to cluster similar kind of words 
      2. RNN to understand sequence pattern
      3. Dense layer
-Evaluvation of the model
+#####Evaluvation of the model
      got more than 71% accuracy in validation set
   
