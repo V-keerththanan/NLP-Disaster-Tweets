@@ -15,4 +15,6 @@
      3. Dense layer
 ##### Evaluvation of the model
      got more than 73% accuracy in validation set
-  
+##### Save the model and preprocessing object using Pickle 
+
+##### Use Flask to deploy the model
