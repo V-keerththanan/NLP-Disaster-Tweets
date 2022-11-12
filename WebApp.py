@@ -2,14 +2,15 @@ from flask import Flask,render_template,request
 import pickle
 import re
 import nltk
-nltk.download('wordnet')
-nltk.download('omw-1.4')
-nltk.download('stopwords')
+# nltk.download('wordnet')
+# nltk.download('omw-1.4')
+# nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
 
-class Ownprocessing:
+class Model:
+    
     stopword = list(stopwords.words('english'))
     def Mypreprocessing_SingleText(self,sent):
         lem=WordNetLemmatizer()
@@ -23,20 +24,9 @@ class Ownprocessing:
                 make=make+word+" "
         make=make.strip()
         return make
-    
-app=Flask(__name__)
-
-@app.route("/")
-@app.route("/home")
-def Home():
-    return render_template("home.html")
-@app.route("/predict",methods=['POST'])
-def predict():
-    dummy=[]
-    if request.method=='POST':
-        text=request.form.get('tweet').strip()
-        print(text)
-        text=Ownprocessing().Mypreprocessing_SingleText(text)
+    def result(self,text:str)->str:
+        dummy=[]
+        text=self.Mypreprocessing_SingleText(text)
         idf=pickle.load(open("Model/TF_IDF.pkl","rb"))
         model=pickle.load(open("Model/LogisticModel.pkl","rb"))
         dummy.append(text)
@@ -46,7 +36,24 @@ def predict():
             result="This tweet is not about real Disaster"
         else:
             result="This tweet is  about real Disaster"
-        print(result)
+        return result 
+
+    
+    
+  
+app=Flask(__name__)
+
+objectModel=Model()
+@app.route("/")
+@app.route("/home")
+def Home():
+    return render_template("home.html")
+
+@app.route("/predict",methods=['POST'])
+def predict():
+    if request.method=='POST':
+        text=request.form.get('tweet').strip()
+        result=objectModel.result(text)
         return render_template("predict.html",r=result)
 if __name__=='__main__':
     app.run(debug=True)
